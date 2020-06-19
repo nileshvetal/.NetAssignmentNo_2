@@ -1,0 +1,11 @@
+D:\Training\.NetAssignmentNo_2\src\leavetracker\bin\Debug\netcoreapp2.2\leavetracker.deps.json
+D:\Training\.NetAssignmentNo_2\src\leavetracker\bin\Debug\netcoreapp2.2\leavetracker.runtimeconfig.json
+D:\Training\.NetAssignmentNo_2\src\leavetracker\bin\Debug\netcoreapp2.2\leavetracker.runtimeconfig.dev.json
+D:\Training\.NetAssignmentNo_2\src\leavetracker\bin\Debug\netcoreapp2.2\leavetracker.dll
+D:\Training\.NetAssignmentNo_2\src\leavetracker\bin\Debug\netcoreapp2.2\leavetracker.pdb
+D:\Training\.NetAssignmentNo_2\src\leavetracker\obj\Debug\netcoreapp2.2\leavetracker.csprojAssemblyReference.cache
+D:\Training\.NetAssignmentNo_2\src\leavetracker\obj\Debug\netcoreapp2.2\leavetracker.csproj.CoreCompileInputs.cache
+D:\Training\.NetAssignmentNo_2\src\leavetracker\obj\Debug\netcoreapp2.2\leavetracker.AssemblyInfoInputs.cache
+D:\Training\.NetAssignmentNo_2\src\leavetracker\obj\Debug\netcoreapp2.2\leavetracker.AssemblyInfo.cs
+D:\Training\.NetAssignmentNo_2\src\leavetracker\obj\Debug\netcoreapp2.2\leavetracker.dll
+D:\Training\.NetAssignmentNo_2\src\leavetracker\obj\Debug\netcoreapp2.2\leavetracker.pdb
