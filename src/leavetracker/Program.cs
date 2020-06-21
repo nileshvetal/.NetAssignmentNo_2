@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace leavetracker
 {
@@ -7,6 +8,9 @@ namespace leavetracker
     {
         static void Main(string[] args)
         {
+            // var employee = Employee.GetById(102);
+            // var manager = Employee.GetById(employee.ManagerId);
+            
             LeaveTrackerApllication();
         }
 
@@ -107,7 +111,63 @@ namespace leavetracker
 
         private static void CreateLeave(Employee employee)
         {
-            throw new NotImplementedException();
+            var leave = new Leave();
+            var regex = new Regex(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$");
+
+            Console.WriteLine();
+            Console.WriteLine("Enter Title*: ");
+            do
+            {
+                leave.Title = Console.ReadLine();
+            } while (string.IsNullOrEmpty(leave.Title.Trim()));
+
+            Console.WriteLine();
+            Console.WriteLine("Enter Description*:");
+            do
+            {
+                leave.Description = Console.ReadLine();
+            } while (string.IsNullOrEmpty(leave.Description.Trim()));
+
+            Console.WriteLine();
+            Console.WriteLine("Enter start date(DD/MM/YYY)");
+            var datestring = "";
+            do
+            {
+                datestring = Console.ReadLine();
+            } while (!regex.IsMatch(datestring.Trim()));
+            leave.StartDate = datestring;
+
+            Console.WriteLine();
+            Console.WriteLine("Enter end date(DD/MM/YYY)");
+            do
+            {
+                datestring = Console.ReadLine();
+            } while (!regex.IsMatch(datestring.Trim()));
+            leave.EndDate = datestring;
+
+            var manager = Employee.GetById(employee.ManagerId);
+            leave.Creator = newUserBase(employee);
+            leave.Manager = newUserBase(manager);
+
+            if (leave.Create(leave))
+            {
+                Console.WriteLine("Succesfully created leave");
+            }
+            else
+            {
+                Console.WriteLine("Please try again");
+            }
+        }
+
+        private static UserBase newUserBase(Employee employee)
+        {
+            var usrBase = new UserBase()
+            {
+                Id = employee.Id,
+                Name = employee.Name
+            };
+
+            return usrBase;
         }
     }
 }

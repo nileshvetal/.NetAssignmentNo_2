@@ -4,12 +4,8 @@ using System.Threading.Tasks;
 
 namespace leavetracker
 {
-    public class Employee
+    public class Employee : UserBase
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
         public int ManagerId { get; set; }
 
         public bool Validate()
@@ -21,6 +17,7 @@ namespace leavetracker
                 if (employee.Id == Id)
                 {
                     Name = employee.Name;
+                    ManagerId = employee.ManagerId;
                     isValid = true;
                 }
             });
@@ -33,11 +30,17 @@ namespace leavetracker
             return CsvFile.ReadEmployes();
         }
 
-        public IEnumerable<Employee> GetById(int id)
+        public static Employee GetById(int id)
         {
             var employees = GetAll();
-            var employee = employees.Where(empl => empl.Id == id);
-
+            var employee = new Employee();
+            employees.ForEach(empl =>
+            {
+                if (empl.Id == id)
+                {
+                    employee = empl;
+                }
+            });
             return employee;
         }
     }
