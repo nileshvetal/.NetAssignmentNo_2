@@ -8,10 +8,6 @@ namespace leavetracker
     {
         static void Main(string[] args)
         {
-            // var employee = Employee.GetById(100);
-            // // ListofMyLeave(employee);
-
-
             LeaveTrackerApllication();
         }
 
