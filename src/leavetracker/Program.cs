@@ -8,9 +8,9 @@ namespace leavetracker
     {
         static void Main(string[] args)
         {
-            // var employee = Employee.GetById(102);
-            // var manager = Employee.GetById(employee.ManagerId);
-            
+                // var employee = Employee.GetById(102);
+                // ListofMyLeave(employee);
+
             LeaveTrackerApllication();
         }
 
@@ -62,7 +62,6 @@ namespace leavetracker
             int choice;
             do
             {
-                Console.WriteLine("Enter your choice");
                 Console.WriteLine();
                 Console.WriteLine("1. Create Leave");
                 Console.WriteLine("2. List my Leaves");
@@ -70,8 +69,10 @@ namespace leavetracker
                 Console.WriteLine("4. Search Leave");
                 Console.WriteLine("5. Sign Out");
                 Console.WriteLine();
+                Console.WriteLine("Enter your choice");
 
                 int.TryParse(Console.ReadLine(), out choice);
+                Console.WriteLine();
 
                 switch (choice)
                 {
@@ -79,7 +80,7 @@ namespace leavetracker
                         CreateLeave(employee);
                         break;
                     case 2:
-                        ListofMyLeave();
+                        ListofMyLeave(employee);
                         break;
                     case 3:
                         UpdateLeaves();
@@ -104,9 +105,20 @@ namespace leavetracker
             throw new NotImplementedException();
         }
 
-        private static void ListofMyLeave()
+        private static void ListofMyLeave(Employee employee)
         {
-            throw new NotImplementedException();
+            var leaves = employee.GetMyLeaves();
+
+            if (leaves.Count < 1)
+            {
+                Console.WriteLine("You did not created any leaves yet");
+                return;
+            }
+
+            leaves.ForEach(leave =>
+            {
+                Console.WriteLine(leave);
+            });
         }
 
         private static void CreateLeave(Employee employee)

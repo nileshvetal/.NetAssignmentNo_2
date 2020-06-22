@@ -43,5 +43,12 @@ namespace leavetracker
             });
             return employee;
         }
+
+        public List<Leave> GetMyLeaves()
+        {
+            var leaves = CsvFile.ReadLeaves();
+            leaves = leaves.Where(lv => lv.Creator.Name.ToLower() == Name.ToLower()).ToList();
+            return leaves;
+        }
     }
 }

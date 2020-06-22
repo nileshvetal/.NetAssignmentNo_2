@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace leavetracker
 {
@@ -26,6 +28,16 @@ namespace leavetracker
             leave.Status = Status.Pending;
             return CsvFile.WriteLeave(leave);
         }
+
+        public override string ToString()
+        {
+            return ("ID: " + Id + "    Creator: " + Creator.Name +
+                "   Manager: " + Manager.Name + "    Title:" +
+                Title + "     Description:" + Description +
+                "   Start-Date: " + StartDate + "   End-Date: " + EndDate +
+                "   Status: " + Status);
+        }
+
     }
 
 }
