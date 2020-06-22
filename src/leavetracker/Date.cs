@@ -14,7 +14,7 @@ namespace leavetracker
             }
             catch (FormatException ex)
             {
-                Console.WriteLine($"Unable to convert {dateString} into date.");
+                Console.WriteLine($"Error: Unable to convert {dateString} into date.");
                 throw ex;
             }
             return dateValue;

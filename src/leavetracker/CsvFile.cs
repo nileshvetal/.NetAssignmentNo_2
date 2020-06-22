@@ -10,11 +10,11 @@ namespace leavetracker
         public static List<Employee> ReadEmployes()
         {
             var employees = new List<Employee>();
-            if (!Directory.Exists(Constants.EmployeeCsvPath))
-            {
-                Console.WriteLine("Please provide correct path");
-                return employees;
-            }
+            // if (!Directory.Exists(Constants.EmployeeCsvPath))
+            // {
+            //     Console.WriteLine("Please provide correct path");
+            //     return employees;
+            // }
 
             var csvFiles = Directory.GetFiles(Constants.EmployeeCsvPath, "*.csv", SearchOption.TopDirectoryOnly);
             var line = "";
@@ -38,7 +38,7 @@ namespace leavetracker
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
             }
             return employees;
         }
@@ -84,7 +84,7 @@ namespace leavetracker
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
             }
             return leaves;
         }
@@ -93,7 +93,15 @@ namespace leavetracker
         {
             leaves = leaves.OrderBy(lv => lv.Id).ToList();
 
-            DeleteLeaveFiles();
+            try
+            {
+                DeleteLeaveFiles();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
+            }
             try
             {
                 using (var writer = File.AppendText(Constants.LeaveCsvFile))  // For colum Headers
@@ -116,7 +124,7 @@ namespace leavetracker
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
                 return false;
             }
 

@@ -7,7 +7,7 @@ namespace LeaveTracker.Test
     public class EmployeeTest
     {
         [Fact]
-        public void TestName()
+        public void ValidEmployeeTest()
         {
             var employee = new Employee()
             {
@@ -16,6 +16,20 @@ namespace LeaveTracker.Test
 
             var actual = employee.Validate();
             var expected = true;
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void InvalidEmployeeTest()
+        {
+            var employee = new Employee()
+            {
+                Id = 155
+            };
+
+            var actual = employee.Validate();
+            var expected = false;
 
             Assert.Equal(expected, actual);
         }
