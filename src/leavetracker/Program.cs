@@ -248,14 +248,14 @@ namespace leavetracker
             } while (string.IsNullOrEmpty(leave.Description.Trim()));
 
             Console.WriteLine();
-            Console.WriteLine("Enter start date(MM/DD/YYY)");
+            Console.WriteLine("Enter start date*(MM/DD/YYY)");
             var dateString = "";
             dateString = Console.ReadLine();
             var startDate = Date.GetFormatedDate(dateString);
             leave.StartDate = startDate;
 
             Console.WriteLine();
-            Console.WriteLine("Enter end date(MM/DD/YYY)");
+            Console.WriteLine("Enter end date*(MM/DD/YYY)");
             dateString = Console.ReadLine();
             var endDate = Date.GetFormatedDate(dateString);
             if (!Date.isValid(startDate, endDate))
@@ -266,7 +266,7 @@ namespace leavetracker
             }
             leave.EndDate = endDate;
 
-            var manager = Employee.GetById(employee.ManagerId);
+            var manager = employee.ManagerId != 0 ? Employee.GetById(employee.ManagerId) : employee;
             leave.Creator = newUserBase(employee);
             leave.Manager = newUserBase(manager);
 
