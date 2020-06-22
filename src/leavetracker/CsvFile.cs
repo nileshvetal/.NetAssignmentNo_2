@@ -10,11 +10,11 @@ namespace leavetracker
         public static List<Employee> ReadEmployes()
         {
             var employees = new List<Employee>();
-            // if (!Directory.Exists(Constants.EmployeeCsvPath))
-            // {
-            //     Console.WriteLine("Please provide correct path");
-            //     return employees;
-            // }
+            if (!Directory.Exists(Constants.EmployeeCsvPath))
+            {
+                Console.WriteLine("Please provide correct path");
+                return employees;
+            }
 
             var csvFiles = Directory.GetFiles(Constants.EmployeeCsvPath, "*.csv", SearchOption.TopDirectoryOnly);
             var line = "";
