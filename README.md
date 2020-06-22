@@ -8,3 +8,6 @@ Leave tracker application. An console application for creating, updating, listin
 4. Manager need to give Id of leaves assigned to him(listed in console) to update status of leave.
 5. If you search by title and give empty, You will get all leaves.
 6. If employee has no manager/May be he is the director, Assigning his leaves to himself.
+
+# Information
+Some of the test case in the test project may fails, because while reading employee or leaves from csv file, Getting directoriy not found error.
