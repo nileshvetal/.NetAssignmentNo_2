@@ -8,8 +8,9 @@ namespace leavetracker
     {
         static void Main(string[] args)
         {
-                // var employee = Employee.GetById(102);
-                // ListofMyLeave(employee);
+            // var employee = Employee.GetById(100);
+            // // ListofMyLeave(employee);
+
 
             LeaveTrackerApllication();
         }
@@ -83,7 +84,7 @@ namespace leavetracker
                         ListofMyLeave(employee);
                         break;
                     case 3:
-                        UpdateLeaves();
+                        UpdateLeaves(employee);
                         break;
                     case 4:
                         SearchLeave();
@@ -97,24 +98,110 @@ namespace leavetracker
 
         private static void SearchLeave()
         {
+            int choice;
+            Console.WriteLine();
+            Console.WriteLine("Search leavey by:");
+            Console.WriteLine("1. Title");
+            Console.WriteLine("2. Satus(Pending/Approved/Rejected)");
+            Console.WriteLine();
+            Console.WriteLine("Enter your choice");
+            int.TryParse(Console.ReadLine(), out choice);
+            Console.WriteLine();
+
+            switch (choice)
+            {
+                case 1:
+                    SearchByTitle();
+                    break;
+
+                case 2:
+                    SearchByStatus();
+                    break;
+
+                default:
+                    Console.WriteLine("Enter valid choice");
+                    break;
+            }
+
+        }
+
+        private static void SearchByStatus()
+        {
             throw new NotImplementedException();
         }
 
-        private static void UpdateLeaves()
+        private static void SearchByTitle()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter search string for title");
+            var searchString = Console.ReadLine();
+            var leaves = Leave.GetByTitle(searchString);
+            Console.WriteLine();
+            if (leaves.Count < 1)
+            {
+                Console.WriteLine("Not Found any matching leave");
+                return;
+            }
+            leaves.ForEach(leave =>
+            {
+                Console.WriteLine(leave);
+            });
+        }
+
+        private static void UpdateLeaves(Employee employee)
+        {
+            if (!employee.isManager())
+            {
+                Console.WriteLine("You do not have permission to update leaves.");
+                return;
+            }
+            var leavesToUpdate = employee.GetLeavesToUpdate();
+            if (leavesToUpdate.Count < 1)
+            {
+                Console.WriteLine("You do not have any pending leaves assing to you.");
+                return;
+            }
+            Console.WriteLine("List of pending leaves, Need to update status.");
+            leavesToUpdate.ForEach(leave =>
+            {
+                Console.WriteLine(leave);
+            });
+            int leaveId;
+            string status;
+            Console.WriteLine("Please enter Id of any leaves mentioned above to update status");
+            int.TryParse(Console.ReadLine(), out leaveId);
+
+            Console.WriteLine("Do you want to approve leave?(y/n)");
+            do
+            {
+                status = Console.ReadLine();
+            } while (string.IsNullOrEmpty(status.Trim()));
+
+            if (!(status.ToLower().Equals("y") || status.ToLower().Equals("n")))
+            {
+                Console.WriteLine("Please type y to approve leave and n ro reject.");
+                return;
+            }
+
+            var isApproved = status.ToLower().Equals("y") ? true : false;
+            if (employee.UpdateLeave(leaveId, isApproved))
+            {
+                Console.WriteLine("Succesfully updated leave.");
+            }
+            else
+            {
+                Console.WriteLine("Please try again.");
+            }
+
         }
 
         private static void ListofMyLeave(Employee employee)
         {
             var leaves = employee.GetMyLeaves();
-
             if (leaves.Count < 1)
             {
                 Console.WriteLine("You did not created any leaves yet");
                 return;
             }
-
             leaves.ForEach(leave =>
             {
                 Console.WriteLine(leave);

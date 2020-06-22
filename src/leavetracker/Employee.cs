@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,9 +47,48 @@ namespace leavetracker
 
         public List<Leave> GetMyLeaves()
         {
-            var leaves = CsvFile.ReadLeaves();
+            var leaves = Leave.GetAll();
             leaves = leaves.Where(lv => lv.Creator.Name.ToLower() == Name.ToLower()).ToList();
             return leaves;
         }
+
+        public bool isManager()
+        {
+            var employees = GetAll();
+            employees = employees.Where(empl => empl.ManagerId == Id).ToList();
+            return employees.Count > 0 ? true : false;
+        }
+
+        public List<Leave> GetLeavesToUpdate()
+        {
+            var leaves = Leave.GetPendingLeaves();
+            leaves = leaves.Where(lv => lv.Manager.Name.ToLower() == Name.ToLower()).ToList();
+            return leaves;
+        }
+
+        public bool UpdateLeave(int leaveId, bool isApproved)
+        {
+            var leaves = GetLeavesToUpdate();
+            Leave updatedLeave = null;
+            leaves.ForEach(lv =>
+            {
+                if (lv.Id == leaveId)
+                {
+                    updatedLeave = lv;
+                }
+            });
+
+            if (updatedLeave == null)
+            {
+                Console.WriteLine("Please enter valid Leave Id");
+                return false;
+            }
+
+            updatedLeave.Status = isApproved ? Status.Approved : Status.Rejected;
+
+            return Leave.Update(updatedLeave);
+        }
+
+
     }
 }

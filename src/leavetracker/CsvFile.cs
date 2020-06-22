@@ -89,11 +89,8 @@ namespace leavetracker
             return leaves;
         }
 
-        internal static bool WriteLeave(Leave leave)
+        internal static bool WriteLeave(List<Leave> leaves)
         {
-            var leaves = ReadLeaves();
-            leave.Id = leaves.Count + 1;
-            leaves.Add(leave);
             leaves = leaves.OrderBy(lv => lv.Id).ToList();
 
             DeleteLeaveFiles();

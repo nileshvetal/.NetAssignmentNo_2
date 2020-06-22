@@ -23,12 +23,6 @@ namespace leavetracker
 
         public Status Status { get; set; }
 
-        public bool Create(Leave leave)
-        {
-            leave.Status = Status.Pending;
-            return CsvFile.WriteLeave(leave);
-        }
-
         public override string ToString()
         {
             return ("ID: " + Id + "    Creator: " + Creator.Name +
@@ -38,6 +32,47 @@ namespace leavetracker
                 "   Status: " + Status);
         }
 
+        public bool Create(Leave leave)
+        {
+            leave.Status = Status.Pending;
+            var leaves = GetAll();
+            leave.Id = leaves.Count + 1;
+            leaves.Add(leave);
+            return CsvFile.WriteLeave(leaves);
+        }
+
+        public static List<Leave> GetAll()
+        {
+            return CsvFile.ReadLeaves();
+        }
+
+        public static bool Update(Leave leave)
+        {
+            var leaves = GetAll();
+            leaves.ForEach(lv =>
+            {
+                if (lv.Id == leave.Id)
+                {
+                    lv.Status = leave.Status;
+                }
+            });
+            return CsvFile.WriteLeave(leaves);
+        }
+
+        public static List<Leave> GetPendingLeaves()
+        {
+            var leaves = GetAll();
+            leaves = leaves.Where(lv => lv.Status == Status.Pending).ToList();
+
+            return leaves;
+        }
+
+        internal static List<Leave> GetByTitle(string searchString)
+        {
+            var leaves = GetAll();
+            leaves = leaves.Where(leave => leave.Title.ToLower().Contains(searchString.ToLower().Trim())).ToList();
+            return leaves;
+        }
     }
 
 }
