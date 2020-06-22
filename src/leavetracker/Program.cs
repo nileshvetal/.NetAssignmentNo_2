@@ -127,7 +127,26 @@ namespace leavetracker
 
         private static void SearchByStatus()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter status to seacrh(Pending/Approved/Rejected)");
+            var statusString = Console.ReadLine();
+            var status = EnumStringMap.ToEnum(statusString);
+            if (status == Status.Other)
+            {
+                Console.WriteLine("Enter valid status");
+                return;
+            }
+
+            var leaves = Leave.GetByStatus(status);
+            Console.WriteLine();
+            if (leaves.Count < 1)
+            {
+                Console.WriteLine("Not Found any matching leave");
+                return;
+            }
+            leaves.ForEach(leave =>
+            {
+                Console.WriteLine(leave);
+            });
         }
 
         private static void SearchByTitle()

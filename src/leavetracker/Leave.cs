@@ -67,10 +67,17 @@ namespace leavetracker
             return leaves;
         }
 
-        internal static List<Leave> GetByTitle(string searchString)
+        public static List<Leave> GetByTitle(string searchString)
         {
             var leaves = GetAll();
             leaves = leaves.Where(leave => leave.Title.ToLower().Contains(searchString.ToLower().Trim())).ToList();
+            return leaves;
+        }
+
+        public static List<Leave> GetByStatus(Status status)
+        {
+            var leaves = GetAll();
+            leaves = leaves.Where(leave => leave.Status == status).ToList();
             return leaves;
         }
     }
