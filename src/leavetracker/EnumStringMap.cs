@@ -27,16 +27,16 @@ namespace leavetracker
             switch (status)
             {
                 case Status.Pending:
-                    return "Pending";
+                    return Constants.Pending;
 
                 case Status.Approved:
-                    return "Approved";
+                    return Constants.Approved;
 
                 case Status.Rejected:
-                    return "Rejected";
+                    return Constants.Rejected;
 
                 default:
-                    return "Other";
+                    return Constants.Other;
 
             }
         }

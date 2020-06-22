@@ -39,8 +39,6 @@ namespace LeaveTracker.Test
             Assert.Equal(expected, actual);
         }
 
-        
-
         [Fact]
         public void OtherStatusStringToEnumTest()
         {
@@ -48,6 +46,50 @@ namespace LeaveTracker.Test
 
             var actual = EnumStringMap.ToEnum(statusString);
             var expected = Status.Other;
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void PendingStatusToStringTest()
+        {
+            var status = Status.Pending;
+
+            var actual = EnumStringMap.ToString(status);
+            var expected = Constants.Pending;
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ApprovedStatusToStringTest()
+        {
+            var status = Status.Approved;
+
+            var actual = EnumStringMap.ToString(status);
+            var expected = Constants.Approved;
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void RejectedStatusToStringTest()
+        {
+            var status = Status.Rejected;
+
+            var actual = EnumStringMap.ToString(status);
+            var expected = Constants.Rejected;
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void OtherStatusToStringTest()
+        {
+            var status = Status.Other;
+
+            var actual = EnumStringMap.ToString(status);
+            var expected = Constants.Other;
 
             Assert.Equal(expected, actual);
         }
