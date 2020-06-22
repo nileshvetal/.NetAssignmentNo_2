@@ -89,6 +89,5 @@ namespace leavetracker
             return Leave.Update(updatedLeave);
         }
 
-
     }
 }

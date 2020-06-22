@@ -1,6 +1,6 @@
 namespace leavetracker
 {
-    class Constants
+    public class Constants
     {
         public const string EmployeeCsvPath = "..\\..\\src\\Employees"; //"..\\Employees";
         public const string LeaveCsvPath = "..\\..\\src\\Leaves";//"..\\Leaves";
