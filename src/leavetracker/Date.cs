@@ -19,5 +19,15 @@ namespace leavetracker
             }
             return dateValue;
         }
+
+        internal static bool isValid(DateTime startDate, DateTime endDate)
+        {
+            if (endDate >= startDate)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

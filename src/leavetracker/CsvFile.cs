@@ -74,8 +74,8 @@ namespace leavetracker
                             Manager = new UserBase { Name = coloms[2] },
                             Title = coloms[3],
                             Description = coloms[4],
-                            StartDate = coloms[5],
-                            EndDate = coloms[6],
+                            StartDate = DateTime.Parse(coloms[5]),
+                            EndDate = DateTime.Parse(coloms[6]),
                             Status = EnumStringMap.ToEnum(coloms[7])
                         };
                         leaves.Add(leave);
@@ -108,8 +108,8 @@ namespace leavetracker
                     {
                         writer.WriteLine(lv.Id + "," + lv.Creator.Name + "," + lv.Manager.Name + ","
                                     + lv.Title + "," + lv.Description + "," +
-                                    lv.StartDate + "," +
-                                    lv.EndDate + "," +
+                                    lv.StartDate.ToShortDateString() + "," +
+                                    lv.EndDate.ToShortDateString() + "," +
                                     EnumStringMap.ToString(lv.Status));
                     }
                 }

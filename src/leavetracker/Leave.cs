@@ -13,9 +13,9 @@ namespace leavetracker
 
         public UserBase Manager { get; set; }
 
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public string EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public string Title { get; set; }
 
@@ -28,7 +28,7 @@ namespace leavetracker
             return ("ID: " + Id + "    Creator: " + Creator.Name +
                 "   Manager: " + Manager.Name + "    Title:" +
                 Title + "     Description:" + Description +
-                "   Start-Date: " + StartDate + "   End-Date: " + EndDate +
+                "   Start-Date: " + StartDate.ToShortDateString() + "   End-Date: " + EndDate.ToShortDateString() +
                 "   Status: " + Status);
         }
 

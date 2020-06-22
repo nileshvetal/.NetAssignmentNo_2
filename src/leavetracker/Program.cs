@@ -153,7 +153,7 @@ namespace leavetracker
         {
             Console.WriteLine("Enter search string for title");
             var searchString = Console.ReadLine();
-            var leaves = Leave.GetByTitle(searchString);
+            var leaves = Leave.GetByTitle(searchString.Trim());
             Console.WriteLine();
             if (leaves.Count < 1)
             {
@@ -179,6 +179,7 @@ namespace leavetracker
                 Console.WriteLine("You do not have any pending leaves assing to you.");
                 return;
             }
+            Console.WriteLine();
             Console.WriteLine("List of pending leaves, Need to update status.");
             leavesToUpdate.ForEach(leave =>
             {
@@ -186,6 +187,7 @@ namespace leavetracker
             });
             int leaveId;
             string status;
+            Console.WriteLine();
             Console.WriteLine("Please enter Id of any leaves mentioned above to update status");
             int.TryParse(Console.ReadLine(), out leaveId);
 
@@ -230,7 +232,6 @@ namespace leavetracker
         private static void CreateLeave(Employee employee)
         {
             var leave = new Leave();
-            var regex = new Regex(@"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$");
 
             Console.WriteLine();
             Console.WriteLine("Enter Title*: ");
@@ -247,21 +248,23 @@ namespace leavetracker
             } while (string.IsNullOrEmpty(leave.Description.Trim()));
 
             Console.WriteLine();
-            Console.WriteLine("Enter start date(DD/MM/YYY)");
-            var datestring = "";
-            do
-            {
-                datestring = Console.ReadLine();
-            } while (!regex.IsMatch(datestring.Trim()));
-            leave.StartDate = datestring;
+            Console.WriteLine("Enter start date(MM/DD/YYY)");
+            var dateString = "";
+            dateString = Console.ReadLine();
+            var startDate = Date.GetFormatedDate(dateString);
+            leave.StartDate = startDate;
 
             Console.WriteLine();
-            Console.WriteLine("Enter end date(DD/MM/YYY)");
-            do
+            Console.WriteLine("Enter end date(MM/DD/YYY)");
+            dateString = Console.ReadLine();
+            var endDate = Date.GetFormatedDate(dateString);
+            if (!Date.isValid(startDate, endDate))
             {
-                datestring = Console.ReadLine();
-            } while (!regex.IsMatch(datestring.Trim()));
-            leave.EndDate = datestring;
+                Console.WriteLine("Enter valid end Date(Should be greater than or equal to start date)");
+                CreateLeave(employee);
+                return;
+            }
+            leave.EndDate = endDate;
 
             var manager = Employee.GetById(employee.ManagerId);
             leave.Creator = newUserBase(employee);
